@@ -8,7 +8,7 @@ import json
 params = {
     "state": "open",
 }
-headers = {'Authorization': 'token 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'}
+headers = {'Authorization': 'token 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'}
 
 logger = logging.getLogger(__name__)
 
