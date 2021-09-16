@@ -4,13 +4,19 @@ import logging
 import re
 import markdown
 import json 
+import os 
+
+secret = os.getenv('secret')
 
 params = {
     "state": "open",
 }
-headers = {'Authorization': 'token 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'}
+headers = {'Authorization': f'token {secret}'}
 
 logger = logging.getLogger(__name__)
+
+logger.debug(f"secret {secret}")
+
 
 def get_tutorial(self):
     owner = "tannerbyers"
