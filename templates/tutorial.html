@@ -1,0 +1,111 @@
+{% extends 'base.html' %} {% block content %} {% load markdownify %}
+<style>
+
+  * {
+    color: black;
+  }
+  
+  .is-added {
+    background-color: #78e08f;
+    color: #000000;
+  }
+
+  .is-removed {
+    background-color: #e55039;
+    color: #000000;
+  }
+  pre {
+    border: 1px solid grey;
+    padding: 4px;
+    background-color: #33363a;
+
+  }
+  .filename {
+    border: 1px solid black;
+    text-align: center;
+  }
+  .activeFile {
+    background-color: grey;
+  }
+  pre {
+    display: none;
+  }
+
+  .active {
+    display: block !important
+  }
+
+</style>
+<script>
+  function openFile(evt, filename, step) {
+    // Sets active file tab 
+    var currentStep = document.getElementById(step);
+    for (i = j = 0; i < currentStep.childNodes.length; i++) {
+      if (currentStep.childNodes[i].nodeName == 'DIV') {
+        j++;
+        var tab = currentStep.childNodes[i];
+        if (evt.target.innerHTML == tab.innerHTML) {
+          evt.target.classList.add("activeFile");
+        } else {
+          tab.classList.remove("activeFile");
+        }
+      }
+    }
+    // Sets active code view 
+    var currentStep = document.getElementById(step + "-2");
+    for (i = j = 0; i < currentStep.childNodes.length; i++) {
+      if (currentStep.childNodes[i].nodeName == 'PRE') {
+        j++;
+        var code = currentStep.childNodes[i];
+        if (filename == code.id) {
+          code.classList.add("active");
+        }
+        else {
+          code.classList.remove("active");
+        }
+      }
+    }
+  }
+</script>
+<div class="container">
+  <div class="row">
+    {% for step in tutorial %}
+      <div class="col-md-6">
+        {% for file in step %} 
+          {% if file.filename == "README.md" %}
+            <div>{{ file.parsedPatch | safe }}</div>
+          {% endif %} 
+        {% endfor %}
+      </div>
+      <div class="col-md-6">
+        <div class="row" id="step{{forloop.counter}}">
+        {% for file in step %} 
+          {% if file.filename != "README.md" %}
+            {% if file.order == 1%}
+            <div onclick="openFile(event, '{{file.filename}}', 'step{{forloop.parentloop.counter}}')" class="col-md-6 filename activeFile">{{file.filename}}</div>
+            {% else %}
+            <div onclick="openFile(event, '{{file.filename}}', 'step{{forloop.parentloop.counter}}')" class="col-md-6 filename">{{file.filename}}</div>
+            {% endif %}
+          {% endif %}
+        {% endfor %}
+        </div>
+        <div id="step{{forloop.counter}}-2">
+        {% for file in step %} 
+          {% if file.filename != "README.md" %}
+            {% if file.order == 1%}
+              <pre id={{file.filename}} class="code active">
+                {% for line in file.newFormat %}<span class="{{line.change}}">{{line.code}}</span></br>{% endfor %}
+              </pre>
+            {% else %}
+              <pre id={{file.filename}} class="code">
+                {% for line in file.newFormat %}<span class="{{line.change}}">{{line.code}}</span></br>{% endfor %}
+              </pre>
+            {% endif %} 
+          {% endif %} 
+        {% endfor %}
+        </div>
+      </div>
+    {% endfor %}
+    {% endblock content %}
+  </div>
+</div>

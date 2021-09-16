@@ -1,0 +1,58 @@
+{% extends 'base.html' %} {% block content %} {% load markdownify %}
+<style>
+  .is-added {
+    background-color: #78e08f;
+    color: #000000;
+  }
+
+  .is-removed {
+    background-color: #e55039;
+    color: #000000;
+  }
+
+  .file-tab pre {
+	border: 1px solid #fad390;
+	border-radius: 2px;
+	border-top-left-radius: 0;
+	margin-right: 10px;
+	max-height: 80%;
+}
+</style>
+<div class="container">
+  {% for step in tutorial %}
+  <div class="d-md-flex h-md-100 align-items-center">
+    <div class="col-md-6 p-0 bg-white h-md-100">
+      <div class="d-md-flex align-items-center h-md-100 p-5 justify-content-center">
+        {% for file in step %} {% if file.filename == "README.md" %}
+        <div>{{ file.parsedPatch | safe }}</div>
+        {% endif %} {% endfor %}
+      </div>
+    </div>
+    <div class="col-md-6 p-0 h-md-100">
+      <div>
+        <div class="">
+          <div class="container filetab">
+            <div class="row">
+              {% for file in step %} 
+                {% if file.filename != "README.md" %}
+                  {% if file.filename != "README.md" %}
+                    <p class="col-md-6 border">{{ file.filename }}</p>
+                    <div class="file-tab">
+                      <pre>
+                        {% for line in file.newFormat %}
+<span class={{line.change}}>{{line.code}} </span>
+                        {% endfor %}
+                      </pre>
+                    </div>
+                  {% endif %}
+                {% endif %} 
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+  <div class="row">{% endblock content %}</div>
+</div>
