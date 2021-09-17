@@ -25,7 +25,7 @@
     padding: 4px;
     background-color: #33363a;
     display: none;
-    max-height: 90vh;
+    max-height: 80vh;
   }
 
   .filename {
@@ -58,6 +58,10 @@
   .row {
     margin-right: 0 !important;
     margin-left: 0 !important;
+  }
+
+  h1 {
+    padding: 1rem
   }
 </style>
 <script>
@@ -106,7 +110,7 @@
     <div class="col-md-6">
       <div class="row" id="step{{forloop.counter}}">
         {% for file in step %}
-        {% if file.filename != "README.md" and newFormat in file %}
+        {% if file.filename != "README.md" and file.parsedPatch != None %}
         {% if file.order == 1%}
         <div onclick="openFile(event, '{{file.filename}}', 'step{{forloop.parentloop.counter}}')"
           class="col-md-6 filename activeFile">{{file.filename}}</div>
@@ -119,7 +123,7 @@
       </div>
       <div id="step{{forloop.counter}}-2">
         {% for file in step %}
-        {% if file.filename != "README.md" and newFormat in file %}
+        {% if file.filename != "README.md" %}
         {% if file.order == 1%}
         <pre id={{file.filename}} class="code active">
                 <code>

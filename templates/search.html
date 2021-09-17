@@ -1,5 +1,16 @@
 {% extends 'base.html' %} {% block content %}
+<style>
+  body {
+    background-color: #151515 !important;
+  }
 
+  .container {
+    padding-top: 2rem;
+    background-color: #151515 !important;
+    color: whitesmoke;
+  }
+
+</style>
 <div class="container">
     <div class="row d-flex justify-content-center p-5">
         <form method="get" action="{% url 'search_results' %}" class="flex text-center justify-content-center p-5">
