@@ -90,6 +90,7 @@
       }
     }
   }
+
 </script>
 <div class="container">
   <div class="row">
@@ -105,7 +106,7 @@
     <div class="col-md-6">
       <div class="row" id="step{{forloop.counter}}">
         {% for file in step %}
-        {% if file.filename != "README.md" %}
+        {% if file.filename != "README.md" and newFormat in file %}
         {% if file.order == 1%}
         <div onclick="openFile(event, '{{file.filename}}', 'step{{forloop.parentloop.counter}}')"
           class="col-md-6 filename activeFile">{{file.filename}}</div>
@@ -118,7 +119,7 @@
       </div>
       <div id="step{{forloop.counter}}-2">
         {% for file in step %}
-        {% if file.filename != "README.md" %}
+        {% if file.filename != "README.md" and newFormat in file %}
         {% if file.order == 1%}
         <pre id={{file.filename}} class="code active">
                 <code>
