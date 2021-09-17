@@ -1,10 +1,15 @@
 {% extends 'base.html' %} {% block content %} {% load markdownify %}
 <style>
-
-  * {
-    color: black;
+  body {
+    background-color: #151515 !important;
   }
-  
+
+  .container {
+    padding-top: 2rem;
+    background-color: #151515 !important;
+    color: whitesmoke;
+  }
+
   .is-added {
     background-color: #78e08f;
     color: #000000;
@@ -14,27 +19,46 @@
     background-color: #e55039;
     color: #000000;
   }
+
   pre {
     border: 1px solid grey;
     padding: 4px;
     background-color: #33363a;
-
+    display: none;
+    max-height: 90vh;
   }
+
   .filename {
     border: 1px solid black;
     text-align: center;
   }
+
   .activeFile {
-    background-color: grey;
+    background-color: #FFFF00;
+    color: black;
   }
-  pre {
-    display: none;
+
+  span {
+    color: white;
   }
 
   .active {
     display: block !important
   }
 
+  hr {
+    border: 0;
+    clear: both;
+    display: block;
+    width: 96%;
+    background-color: #FFFF00;
+    height: 1px;
+  }
+
+  .row {
+    margin-right: 0 !important;
+    margin-left: 0 !important;
+  }
 </style>
 <script>
   function openFile(evt, filename, step) {
@@ -70,41 +94,48 @@
 <div class="container">
   <div class="row">
     {% for step in tutorial %}
-      <div class="col-md-6">
-        {% for file in step %} 
-          {% if file.filename == "README.md" %}
-            <div>{{ file.parsedPatch | safe }}</div>
-          {% endif %} 
+    <hr>
+    <div class="col-md-6">
+      {% for file in step %}
+      {% if file.filename == "README.md" %}
+      <div>{{ file.parsedPatch | safe }}</div>
+      {% endif %}
+      {% endfor %}
+    </div>
+    <div class="col-md-6">
+      <div class="row" id="step{{forloop.counter}}">
+        {% for file in step %}
+        {% if file.filename != "README.md" %}
+        {% if file.order == 1%}
+        <div onclick="openFile(event, '{{file.filename}}', 'step{{forloop.parentloop.counter}}')"
+          class="col-md-6 filename activeFile">{{file.filename}}</div>
+        {% else %}
+        <div onclick="openFile(event, '{{file.filename}}', 'step{{forloop.parentloop.counter}}')"
+          class="col-md-6 filename">{{file.filename}}</div>
+        {% endif %}
+        {% endif %}
         {% endfor %}
       </div>
-      <div class="col-md-6">
-        <div class="row" id="step{{forloop.counter}}">
-        {% for file in step %} 
-          {% if file.filename != "README.md" %}
-            {% if file.order == 1%}
-            <div onclick="openFile(event, '{{file.filename}}', 'step{{forloop.parentloop.counter}}')" class="col-md-6 filename activeFile">{{file.filename}}</div>
-            {% else %}
-            <div onclick="openFile(event, '{{file.filename}}', 'step{{forloop.parentloop.counter}}')" class="col-md-6 filename">{{file.filename}}</div>
-            {% endif %}
-          {% endif %}
-        {% endfor %}
-        </div>
-        <div id="step{{forloop.counter}}-2">
-        {% for file in step %} 
-          {% if file.filename != "README.md" %}
-            {% if file.order == 1%}
-              <pre id={{file.filename}} class="code active">
-                {% for line in file.newFormat %}<span class="{{line.change}}">{{line.code}}</span></br>{% endfor %}
+      <div id="step{{forloop.counter}}-2">
+        {% for file in step %}
+        {% if file.filename != "README.md" %}
+        {% if file.order == 1%}
+        <pre id={{file.filename}} class="code active">
+                <code>
+                  {% for line in file.newFormat %}<span class="{{line.change}}">{{line.code}}</span></br>{% endfor %}
+                </code>
               </pre>
-            {% else %}
-              <pre id={{file.filename}} class="code">
-                {% for line in file.newFormat %}<span class="{{line.change}}">{{line.code}}</span></br>{% endfor %}
+        {% else %}
+        <pre id={{file.filename}} class="code">
+                <code>
+                  {% for line in file.newFormat %}<span class="{{line.change}}">{{line.code}}</span></br>{% endfor %}
+                </code>
               </pre>
-            {% endif %} 
-          {% endif %} 
+        {% endif %}
+        {% endif %}
         {% endfor %}
-        </div>
       </div>
+    </div>
     {% endfor %}
     {% endblock content %}
   </div>

@@ -15,10 +15,14 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from tutorials.views import GetTutorial
+from tutorials.views import HomePageView, SearchResultsView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('blog.urls')),
-    path('tutorial/', GetTutorial.as_view(template_name='tutorial.html'), name='Tutorial View'),
+    # path('', include('tutorials.urls')),
+    # path('', GetTutorial.as_view(template_name='search.html'), name='Home Search'),
+    path('search/', SearchResultsView.as_view(), name='search_results'),
+    path('', HomePageView.as_view(), name='home'),
+
 ]

@@ -19,8 +19,16 @@ logger.debug(f"secret {secret}")
 
 
 def get_tutorial(self):
-    owner = "tannerbyers"
-    repo = "sample-tutorial"
+    
+    githubUrl = self.request.GET.get('githubUrl', '')
+    if githubUrl.startswith('http'):
+        githubUrl = re.sub(r'https?:\\', '', githubUrl)
+    if githubUrl.startswith('www.'):
+        githubUrl = re.sub(r'www.', '', githubUrl)
+    
+    # Sample url https://github.com/tannerbyers/Codutorial
+    owner = githubUrl.split('/')[3]
+    repo = githubUrl.split('/')[4]
 
     queryGithubBranchUrl = f"https://api.github.com/repos/{owner}/{repo}/branches"
 
@@ -72,8 +80,6 @@ def get_tutorial(self):
 
         allChanges.append(responsePatches["files"])
         i -= 1
-
-    logger.debug(f"Length of changes {self.request.get_full_path()}")
 
     tutorial = allChanges
     return tutorial

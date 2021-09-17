@@ -1,0 +1,15 @@
+{% extends 'base.html' %} {% block content %}
+
+<div class="container">
+    <div class="row d-flex justify-content-center p-5">
+        <form method="get" action="{% url 'search_results' %}" class="flex text-center justify-content-center p-5">
+            {% csrf_token %}
+            <label>Enter the github url below to read their tutorial</label>
+            <br/>
+            <input name="githubUrl" type="text" placeholder="Search...">
+            <button>Search</button>
+        </form>
+    </div>
+</div>
+
+{% endblock content %}
