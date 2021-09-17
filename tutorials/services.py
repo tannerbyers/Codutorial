@@ -15,9 +15,6 @@ headers = {'Authorization': f'token {secret}'}
 
 logger = logging.getLogger(__name__)
 
-logger.debug(f"secret {secret}")
-
-
 def get_tutorial(self):
     
     githubUrl = self.request.GET.get('githubUrl', '')
@@ -63,20 +60,21 @@ def get_tutorial(self):
         # This is to keep track of file count without readme
         fileCounter = 0
         for file in responsePatches["files"]:
-            parsedPatch = re.sub("(@@).*(@@)", "", file["patch"])
-            if (parsedPatch[-1] != "\n"):
-                parsedPatch += "\n"
-            if (file["filename"] == "README.md"):
-                parsedPatch = re.findall(
-                    "(?<=\+)(.*?)(?=\n)", parsedPatch)
-                parsedPatch = '\n'.join(parsedPatch)
-                # Convert readme markdown to HTML
-                file["parsedPatch"] = markdown.markdown(parsedPatch)
-            else:
-                fileCounter += 1
-                file["parsedPatch"] = parsedPatch
-                file["newFormat"] = getChangesInPatch(file)
-                file["order"] = fileCounter
+            if "patch" in file:
+                parsedPatch = re.sub("(@@).*(@@)", "", file["patch"])
+                if (parsedPatch[-1] != "\n"):
+                    parsedPatch += "\n"
+                if (file["filename"] == "README.md"):
+                    parsedPatch = re.findall(
+                        "(?<=\+)(.*?)(?=\n)", parsedPatch)
+                    parsedPatch = '\n'.join(parsedPatch)
+                    # Convert readme markdown to HTML
+                    file["parsedPatch"] = markdown.markdown(parsedPatch)
+                else:
+                    fileCounter += 1
+                    file["parsedPatch"] = parsedPatch
+                    file["newFormat"] = getChangesInPatch(file)
+                    file["order"] = fileCounter
 
         allChanges.append(responsePatches["files"])
         i -= 1
