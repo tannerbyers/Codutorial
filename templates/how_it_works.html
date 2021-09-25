@@ -1,0 +1,136 @@
+{% extends 'base.html' %} {% block content %}
+<style>
+    body {
+        background-color: #151515 !important;
+    }
+
+    .container {
+        padding-top: 2rem;
+        background-color: #151515 !important;
+        color: whitesmoke;
+    }
+
+    body {
+        background-color: #151515 !important;
+    }
+
+    .container {
+        padding-top: 2rem;
+        background-color: #151515 !important;
+        color: whitesmoke;
+    }
+
+    .is-added {
+        background-color: #78e08f;
+        color: #000000;
+    }
+
+    .is-removed {
+        background-color: #e55039;
+        color: #000000;
+    }
+
+    pre {
+        border: 1px solid grey;
+        padding: 4px;
+        background-color: #33363a;
+        display: none;
+        max-height: 80vh;
+    }
+
+    .filename {
+        border: 1px solid black;
+        text-align: center;
+    }
+
+    .activeFile {
+        background-color: #FFFF00;
+        color: black;
+    }
+
+    span {
+        color: white;
+    }
+
+    .active {
+        display: block !important
+    }
+
+    hr {
+        border: 0;
+        clear: both;
+        display: block;
+        width: 96%;
+        background-color: #FFFF00;
+        height: 1px;
+    }
+
+    .row {
+        margin-right: 0 !important;
+        margin-left: 0 !important;
+    }
+
+    h1 {
+        padding: 1rem
+    }
+</style>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+
+<div class="container">
+    <div class="row d-flex justify-content-center">
+        <h1>How It works</h1>
+    </div>
+    <div class="row d-flex justify-content-center">
+        ✨ Magic of course ✨
+    </div>
+    <div class="row d-flex justify-content-center text-left p-3">
+        By magic I mean we use the github api and some backend processing of the data returned. <br />
+        <div class="row d-flex justify-content-center p-3">
+            <h2> Okay cool story. How do I use it?</h2>
+            <div class="row d-flex justify-content-center text-left p-3">
+            </div>
+            <div class="container">
+                <div class="row">
+                    <hr>
+                    <div class="col-md-6">
+                        <div>
+                            <h2>First step</h2>
+                            Add your boiler plate code and then add your tutorial intro to your README.md
+                            <div class="alert alert-danger" role="alert">
+                                Make sure to add linebreaks at the end of your file! If not, github see's the new line breaks in your next commit as a changed line and it adds it to the next step. 
+                              </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                    </div>
+                </div>
+                <div class="row">
+                    <hr>
+                    <div class="col-md-6">
+                        <div>
+                            <h2>Next Step</h2>
+                            Commit all your changes, and then move on to your next step. You will just add the next step's code changes and then add your instructions into the Readme.md like before!
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                    </div>
+                </div>
+                <div class="row">
+                    <hr>
+                    <div class="col-md-6">
+                        <div>
+                            <h2>Rinse And Repeat.</h2>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</div>
+</div>
+
+{% endblock content %}

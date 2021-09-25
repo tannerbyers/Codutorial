@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from tutorials.views import HomePageView, SearchResultsView
+from tutorials.views import HomePageView, SearchResultsView, HowItWorksView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -23,6 +23,7 @@ urlpatterns = [
     # path('', include('tutorials.urls')),
     # path('', GetTutorial.as_view(template_name='search.html'), name='Home Search'),
     path('search/', SearchResultsView.as_view(), name='search_results'),
+    path('howitworks/', HowItWorksView.as_view(), name='how_it_works'),
     path('', HomePageView.as_view(), name='home'),
 
 ]
