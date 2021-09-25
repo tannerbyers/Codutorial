@@ -13,6 +13,9 @@ class GetTutorial(TemplateView):
 class HomePageView(TemplateView):
     template_name = 'search.html'
 
+class HowItWorksView(TemplateView):
+    template_name = 'how_it_works.html'
+
 class SearchResultsView(TemplateView):
     def get_context_data(self, *args, **kwargs):
         context = {
