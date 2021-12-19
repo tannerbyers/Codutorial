@@ -1,4 +1,7 @@
 # Coding Tutorial 
+
+Deployed here: https://codutorial.herokuapp.com
+
 This is a prototype of the idea presented here:
 https://matthiashager.com/tardis/programming-tutorial-demo
 
